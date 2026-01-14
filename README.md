@@ -20,27 +20,34 @@ This grammar parses [`.validatetest` files](https://gstreamer.freedesktop.org/do
 
 ### Neovim (with nvim-treesitter)
 
-Add the parser to your nvim-treesitter configuration:
+Add the following to your neovim configuration (e.g., `lua/plugins/validatetest.lua` for LazyVim):
 
 ```lua
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-parser_config.validatetest = {
-  install_info = {
-    url = "https://github.com/thiblahute/tree-sitter-validatetest",
-    files = {"src/parser.c"},
-    branch = "main",
-  },
-  filetype = "validatetest",
-}
-
+-- Register the filetype
 vim.filetype.add({
   extension = {
     validatetest = "validatetest",
   },
 })
+
+-- Register custom parser with nvim-treesitter
+vim.api.nvim_create_autocmd("User", {
+  pattern = "TSUpdate",
+  callback = function()
+    require("nvim-treesitter.parsers").validatetest = {
+      install_info = {
+        url = "https://github.com/thiblahute/tree-sitter-validatetest",
+        files = { "src/parser.c" },
+        branch = "main",
+      },
+    }
+  end,
+})
+
+return {}
 ```
 
-Then run `:TSInstall validatetest`.
+Then restart neovim and run `:TSInstall validatetest`.
 
 ### Rust
 
