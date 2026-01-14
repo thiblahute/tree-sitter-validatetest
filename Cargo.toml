@@ -1,0 +1,29 @@
+[package]
+name = "tree-sitter-validatetest"
+version = "0.1.0"
+description = "GStreamer ValidateTest grammar for tree-sitter"
+authors = ["Thibault Saunier"]
+license = "MIT"
+readme = "README.md"
+keywords = ["gstreamer", "validate", "tree-sitter", "parser"]
+categories = ["parsing", "text-editors"]
+repository = "https://github.com/gstreamer/tree-sitter-validatetest"
+edition = "2021"
+autoexamples = false
+
+build = "bindings/rust/build.rs"
+include = [
+    "bindings/rust/*",
+    "grammar.js",
+    "queries/*",
+    "src/*",
+]
+
+[lib]
+path = "bindings/rust/lib.rs"
+
+[dependencies]
+tree-sitter-language = "0.1"
+
+[build-dependencies]
+cc = "1"

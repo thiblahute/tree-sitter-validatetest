@@ -1,0 +1,117 @@
+================================================================================
+Simple action without fields
+================================================================================
+
+play
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (structure
+    (structure_name
+      (identifier))))
+
+================================================================================
+Simple action with semicolon
+================================================================================
+
+play;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (structure
+    (structure_name
+      (identifier))))
+
+================================================================================
+Action with single field
+================================================================================
+
+seek, start=5.0
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (structure
+    (structure_name
+      (identifier))
+    (field_list
+      (field
+        (field_name
+          (identifier))
+        (field_value
+          (value
+            (number)))))))
+
+================================================================================
+Action with multiple fields
+================================================================================
+
+seek, start=5.0, stop=10.0, flags=flush+accurate
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (structure
+    (structure_name
+      (identifier))
+    (field_list
+      (field
+        (field_name
+          (identifier))
+        (field_value
+          (value
+            (number))))
+      (field
+        (field_name
+          (identifier))
+        (field_value
+          (value
+            (number))))
+      (field
+        (field_name
+          (identifier))
+        (field_value
+          (value
+            (flags)))))))
+
+================================================================================
+Multiple structures
+================================================================================
+
+play
+stop
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (structure
+    (structure_name
+      (identifier)))
+  (structure
+    (structure_name
+      (identifier))))
+
+================================================================================
+Structure with string value
+================================================================================
+
+checkpoint, text="Hello World"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (structure
+    (structure_name
+      (identifier))
+    (field_list
+      (field
+        (field_name
+          (identifier))
+        (field_value
+          (value
+            (string
+              (string_content)
+              (string_content)
+              (string_content))))))))

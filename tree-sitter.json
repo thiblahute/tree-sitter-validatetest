@@ -1,0 +1,34 @@
+{
+  "grammars": [
+    {
+      "name": "validatetest",
+      "camelcase": "ValidateTest",
+      "scope": "source.validatetest",
+      "path": ".",
+      "file-types": ["validatetest"],
+      "highlights": "queries/highlights.scm",
+      "injections": "queries/injections.scm"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "GStreamer ValidateTest grammar for tree-sitter",
+    "authors": [
+      {
+        "name": "Thibault Saunier"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/gstreamer/tree-sitter-validatetest"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true
+  }
+}

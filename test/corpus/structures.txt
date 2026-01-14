@@ -1,0 +1,78 @@
+================================================================================
+Nested structure block with strings
+================================================================================
+
+meta,
+    configs = {
+        "config1",
+        "config2"
+    }
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (structure
+    (structure_name
+      (identifier))
+    (field_list
+      (field
+        (field_name
+          (identifier))
+        (field_value
+          (nested_structure_block
+            (field_value
+              (value
+                (string
+                  (string_content))))
+            (field_value
+              (value
+                (string
+                  (string_content))))))))))
+
+================================================================================
+Simple array
+================================================================================
+
+foreach, n=[0, 10]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (structure
+    (structure_name
+      (identifier))
+    (field_list
+      (field
+        (field_name
+          (identifier))
+        (field_value
+          (array
+            (field_value
+              (value
+                (number)))
+            (field_value
+              (value
+                (number)))))))))
+
+================================================================================
+Meta with args block single line
+================================================================================
+
+meta, args = { "abc" }
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (structure
+    (structure_name
+      (identifier))
+    (field_list
+      (field
+        (field_name
+          (identifier))
+        (field_value
+          (nested_structure_block
+            (field_value
+              (value
+                (string
+                  (string_content))))))))))
