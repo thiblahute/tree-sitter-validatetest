@@ -112,6 +112,47 @@ checkpoint, text="Hello World"
         (field_value
           (value
             (string
-              (string_content)
-              (string_content)
-              (string_content))))))))
+              (string_inner
+                (string_content)
+                (string_content)
+                (string_content)))))))))
+
+================================================================================
+Structure with variable as name
+================================================================================
+
+$(validateflow), pad=videosink:sink
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (structure
+    (structure_name
+      (variable))
+    (field_list
+      (field
+        (field_name
+          (identifier))
+        (field_value
+          (value
+            (unquoted_string)))))))
+
+================================================================================
+Value with colon
+================================================================================
+
+config, sink=videosink:sink
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (structure
+    (structure_name
+      (identifier))
+    (field_list
+      (field
+        (field_name
+          (identifier))
+        (field_value
+          (value
+            (unquoted_string)))))))
