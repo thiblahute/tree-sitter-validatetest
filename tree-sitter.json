@@ -20,7 +20,7 @@
       }
     ],
     "links": {
-      "repository": "https://github.com/gstreamer/tree-sitter-validatetest"
+      "repository": "https://github.com/thiblahute/tree-sitter-validatetest"
     }
   },
   "bindings": {

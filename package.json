@@ -4,7 +4,7 @@
   "description": "GStreamer ValidateTest grammar for tree-sitter",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gstreamer/tree-sitter-validatetest"
+    "url": "https://github.com/thiblahute/tree-sitter-validatetest"
   },
   "license": "MIT",
   "author": "Thibault Saunier",

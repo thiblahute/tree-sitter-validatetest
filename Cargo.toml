@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 keywords = ["gstreamer", "validate", "tree-sitter", "parser"]
 categories = ["parsing", "text-editors"]
-repository = "https://github.com/gstreamer/tree-sitter-validatetest"
+repository = "https://github.com/thiblahute/tree-sitter-validatetest"
 edition = "2021"
 autoexamples = false
 

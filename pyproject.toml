@@ -24,7 +24,7 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/gstreamer/tree-sitter-validatetest"
+Homepage = "https://github.com/thiblahute/tree-sitter-validatetest"
 
 [tool.setuptools]
 packages = ["tree_sitter_validatetest"]
