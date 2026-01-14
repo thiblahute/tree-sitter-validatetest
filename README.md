@@ -12,8 +12,9 @@ This grammar parses [`.validatetest` files](https://gstreamer.freedesktop.org/do
 - Expressions (`expr(...)`)
 - Type casts (`(type)value`)
 - Property paths (`element.pad::property`)
-- Arrays (`[...]` and `<...>`)
-- Nested structure blocks (`{...}`)
+- Arrays with nested structures (`[...]`)
+- GstValueArray (`<...>`)
+- Value blocks (`{...}`)
 
 ## Installation
 
