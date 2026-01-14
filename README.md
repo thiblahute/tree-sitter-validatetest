@@ -2,7 +2,7 @@
 
 GStreamer ValidateTest grammar for [tree-sitter](https://tree-sitter.github.io/).
 
-This grammar parses `.validatetest` files used by `gst-validate-launcher` for testing GStreamer pipelines.
+This grammar parses [`.validatetest` files](https://gstreamer.freedesktop.org/documentation/gst-devtools/gst-validate-test-file.html) used for testing GStreamer pipelines. These files are executed by `gst-validate-1.0`, `ges-launch-1.0`, or any GStreamer tool that supports the validate test format.
 
 ## Features
 
@@ -25,7 +25,7 @@ Add the parser to your nvim-treesitter configuration:
 local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 parser_config.validatetest = {
   install_info = {
-    url = "https://github.com/gstreamer/tree-sitter-validatetest",
+    url = "https://github.com/thiblahute/tree-sitter-validatetest",
     files = {"src/parser.c"},
     branch = "main",
   },

@@ -3,7 +3,7 @@
  * @author Thibault Saunier
  * @license MIT
  *
- * Grammar for .validatetest files used by gst-validate-launcher.
+ * Grammar for .validatetest files used by gst-validate-1.0, ges-launch-1.0, etc.
  * Based on GstStructure serialization format with additional constructs
  * for variables, expressions, and comments.
  */
