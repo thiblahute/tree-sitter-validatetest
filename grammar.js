@@ -18,7 +18,6 @@ module.exports = grammar({
 
   conflicts: ($) => [
     [$.array_structure],
-    [$.array_structure, $.field_value],
     [$.structure],
     [$.structure, $.field_value],
     [$.field_list],
@@ -167,23 +166,47 @@ module.exports = grammar({
       /[a-zA-Z_][a-zA-Z0-9_-]*/
     )),
 
-    // Unquoted string (bare identifier or value) - lower precedence
-    unquoted_string: ($) => token(prec(-1, /[a-zA-Z_][a-zA-Z0-9_\-.]*/)),
+    // Unquoted string (bare identifier or value)
+    // Using alias to make this distinct from identifier at parse level
+    unquoted_string: ($) => alias(/[a-zA-Z_][a-zA-Z0-9_\-.]*/, "unquoted_string"),
 
-    // Basic identifier - higher precedence
-    identifier: ($) => token(prec(1, /[a-zA-Z_][a-zA-Z0-9_\-]*/)),
+    // Basic identifier
+    identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_\-]*/,
 
     // Array: [ item, item, ... ] or [ structure, structure, ... ]
     // Allows trailing commas
-    // Use dynamic precedence to prefer array_structure when it fully parses
+    // Uses repeat instead of sep1 because array_structure contains internal commas
     array: ($) =>
       seq(
         "[",
-        optional(seq(
-          sep1(choice(prec.dynamic(10, $.array_structure), $.field_value), ","),
-          optional(",")  // Allow trailing comma
-        )),
+        repeat($.array_element),
         "]",
+      ),
+
+    // Array element: either a structure with fields or a simple value
+    // Uses array_value instead of field_value to avoid ambiguity with bare identifiers
+    array_element: ($) =>
+      choice(
+        seq($.array_structure, optional(",")),
+        seq($.array_value, optional(",")),
+      ),
+
+    // Value types allowed directly in arrays (excludes bare identifiers to avoid ambiguity)
+    array_value: ($) =>
+      choice(
+        $.typed_value,
+        $.string,
+        $.hex_number,
+        $.fraction,
+        $.number,
+        $.boolean,
+        $.variable,
+        $.expression,
+        $.flags,
+        $.namespaced_identifier,
+        $.array,
+        $.angle_bracket_array,
+        $.nested_structure_block,
       ),
 
     // GstValueArray: < item, item, ... > (angle bracket array)
