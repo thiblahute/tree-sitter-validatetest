@@ -8,9 +8,3 @@ build/
 
 # Package lock (regenerated on install)
 package-lock.json
-
-# Generated files that should be regenerated
-src/grammar.json
-src/node-types.json
-src/parser.c
-src/tree_sitter/
