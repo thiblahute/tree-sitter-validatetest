@@ -87,8 +87,17 @@
       ]
     },
     "structure_name": {
-      "type": "SYMBOL",
-      "name": "identifier"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "variable"
+        }
+      ]
     },
     "field_list": {
       "type": "SEQ",
@@ -318,38 +327,50 @@
           "value": "\""
         },
         {
-          "type": "REPEAT",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "escape_sequence"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "expression"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "variable"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "string_content"
-              },
-              {
-                "type": "STRING",
-                "value": "$"
-              }
-            ]
-          }
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "string_inner"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "STRING",
           "value": "\""
         }
       ]
+    },
+    "string_inner": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "escape_sequence"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "expression"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "variable"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "string_content"
+          },
+          {
+            "type": "STRING",
+            "value": "$"
+          }
+        ]
+      }
     },
     "string_content": {
       "type": "PATTERN",
@@ -507,7 +528,7 @@
       "type": "ALIAS",
       "content": {
         "type": "PATTERN",
-        "value": "[a-zA-Z_][a-zA-Z0-9_\\-.]*"
+        "value": "[a-zA-Z_][a-zA-Z0-9_\\-.:]*"
       },
       "named": false,
       "value": "unquoted_string"
@@ -779,6 +800,14 @@
     [
       "structure",
       "field_value"
+    ],
+    [
+      "structure_name",
+      "array_value"
+    ],
+    [
+      "structure_name",
+      "value"
     ],
     [
       "field_list"

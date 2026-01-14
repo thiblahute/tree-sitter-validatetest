@@ -1,10 +1,22 @@
 ; Injections for GStreamer ValidateTest files
-; This file can be used to inject other language parsers (like gstlaunch for pipeline strings)
+; Re-parse embedded GstStructure syntax within strings
 
-; Inject gstlaunch parser for pipeline description strings in args field
-; Uncomment when tree-sitter-gstlaunch is available and configured
-; ((field
-;   (field_name (identifier) @_field_name)
-;   (field_value (value (string) @injection.content)))
-;  (#eq? @_field_name "args")
-;  (#set! injection.language "gstlaunch"))
+; Strings in 'configs' field contain GstStructure syntax
+((field
+  name: (field_name (identifier) @_field_name)
+  value: (field_value
+    (nested_structure_block
+      (field_value (value (string (string_inner) @injection.content))))))
+ (#eq? @_field_name "configs")
+ (#set! injection.language "validatetest")
+ (#set! injection.include-children))
+
+; Strings in 'expected-issues' field contain GstStructure syntax
+((field
+  name: (field_name (identifier) @_field_name)
+  value: (field_value
+    (nested_structure_block
+      (field_value (value (string (string_inner) @injection.content))))))
+ (#eq? @_field_name "expected-issues")
+ (#set! injection.language "validatetest")
+ (#set! injection.include-children))

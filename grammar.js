@@ -20,6 +20,8 @@ module.exports = grammar({
     [$.array_structure],
     [$.structure],
     [$.structure, $.field_value],
+    [$.structure_name, $.array_value],
+    [$.structure_name, $.value],
     [$.field_list],
   ],
 
@@ -38,8 +40,8 @@ module.exports = grammar({
     structure: ($) =>
       seq($.structure_name, optional(seq(",", $.field_list)), optional(";")),
 
-    // Structure name (action type)
-    structure_name: ($) => $.identifier,
+    // Structure name (action type) - can be identifier or variable
+    structure_name: ($) => choice($.identifier, $.variable),
 
     // Comma-separated list of fields
     field_list: ($) => sep1($.field, ","),
@@ -102,16 +104,20 @@ module.exports = grammar({
     string: ($) =>
       seq(
         '"',
-        repeat(
-          choice(
-            $.escape_sequence,
-            $.expression,
-            $.variable,
-            $.string_content,
-            "$",  // Lone $ that's not part of $(...)
-          ),
-        ),
+        optional($.string_inner),
         '"',
+      ),
+
+    // Inner content of a string (used for injections)
+    string_inner: ($) =>
+      repeat1(
+        choice(
+          $.escape_sequence,
+          $.expression,
+          $.variable,
+          $.string_content,
+          "$",  // Lone $ that's not part of $(...)
+        ),
       ),
 
     // String content that's not a special sequence
@@ -168,7 +174,7 @@ module.exports = grammar({
 
     // Unquoted string (bare identifier or value)
     // Using alias to make this distinct from identifier at parse level
-    unquoted_string: ($) => alias(/[a-zA-Z_][a-zA-Z0-9_\-.]*/, "unquoted_string"),
+    unquoted_string: ($) => alias(/[a-zA-Z_][a-zA-Z0-9_\-.:]*/, "unquoted_string"),
 
     // Basic identifier
     identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_\-]*/,
