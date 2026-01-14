@@ -167,20 +167,20 @@ module.exports = grammar({
       /[a-zA-Z_][a-zA-Z0-9_-]*/
     )),
 
-    // Unquoted string (bare identifier or value)
-    unquoted_string: ($) => /[a-zA-Z_][a-zA-Z0-9_\-.]*/,
+    // Unquoted string (bare identifier or value) - lower precedence
+    unquoted_string: ($) => token(prec(-1, /[a-zA-Z_][a-zA-Z0-9_\-.]*/)),
 
-    // Basic identifier
-    identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_\-]*/,
+    // Basic identifier - higher precedence
+    identifier: ($) => token(prec(1, /[a-zA-Z_][a-zA-Z0-9_\-]*/)),
 
     // Array: [ item, item, ... ] or [ structure, structure, ... ]
     // Allows trailing commas
-    // Prefer array_structure over field_value when ambiguous
+    // Use dynamic precedence to prefer array_structure when it fully parses
     array: ($) =>
       seq(
         "[",
         optional(seq(
-          sep1(choice(prec(1, $.array_structure), $.field_value), ","),
+          sep1(choice(prec.dynamic(10, $.array_structure), $.field_value), ","),
           optional(",")  // Allow trailing comma
         )),
         "]",
@@ -195,8 +195,9 @@ module.exports = grammar({
       ),
 
     // Structure inside an array (without the trailing semicolon rules)
+    // Requires at least one field to distinguish from bare values
     array_structure: ($) =>
-      seq($.structure_name, optional(seq(",", $.field_list))),
+      seq($.structure_name, ",", $.field_list),
 
     // Nested structure block: { structure, structure, ... } or { "string", "string", ... }
     // Note: strings, arrays, and other values are captured via field_value
