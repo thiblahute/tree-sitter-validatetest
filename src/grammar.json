@@ -493,17 +493,36 @@
       "value": "0x[0-9a-fA-F]+"
     },
     "boolean": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "true"
-        },
-        {
-          "type": "STRING",
-          "value": "false"
-        }
-      ]
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "[tT][rR][uU][eE]"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[fF][aA][lL][sS][eE]"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[yY][eE][sS]"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[nN][oO]"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[tT]"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[fF]"
+          }
+        ]
+      }
     },
     "flags": {
       "type": "TOKEN",

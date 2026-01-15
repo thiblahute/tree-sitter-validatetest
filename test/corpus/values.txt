@@ -25,6 +25,74 @@ meta, handles-states=true, seek=false
             (boolean)))))))
 
 ================================================================================
+Boolean aliases (yes/no, t/f, case insensitive)
+================================================================================
+
+meta, a=yes, b=NO, c=t, d=F
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (structure
+    (structure_name
+      (identifier))
+    (field_list
+      (field
+        (field_name
+          (identifier))
+        (field_value
+          (value
+            (boolean))))
+      (field
+        (field_name
+          (identifier))
+        (field_value
+          (value
+            (boolean))))
+      (field
+        (field_name
+          (identifier))
+        (field_value
+          (value
+            (boolean))))
+      (field
+        (field_name
+          (identifier))
+        (field_value
+          (value
+            (boolean)))))))
+
+================================================================================
+Typed boolean with numeric value
+================================================================================
+
+meta, enabled=(bool)1, disabled=(bool)0
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (structure
+    (structure_name
+      (identifier))
+    (field_list
+      (field
+        (field_name
+          (identifier))
+        (field_value
+          (typed_value
+            (type_name)
+            (value
+              (number)))))
+      (field
+        (field_name
+          (identifier))
+        (field_value
+          (typed_value
+            (type_name)
+            (value
+              (number))))))))
+
+================================================================================
 Variable reference
 ================================================================================
 

@@ -153,8 +153,16 @@ module.exports = grammar({
     // Hexadecimal number
     hex_number: ($) => /0x[0-9a-fA-F]+/,
 
-    // Boolean
-    boolean: ($) => choice("true", "false"),
+    // Boolean (true/false, yes/no, t/f - case insensitive)
+    // Note: 1/0 are parsed as numbers unless explicitly cast with (bool)
+    boolean: ($) => token(choice(
+      /[tT][rR][uU][eE]/,
+      /[fF][aA][lL][sS][eE]/,
+      /[yY][eE][sS]/,
+      /[nN][oO]/,
+      /[tT]/,
+      /[fF]/,
+    )),
 
     // Flags: flag1+flag2+flag3
     // Use token to match the whole flags expression as a single token

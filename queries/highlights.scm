@@ -40,6 +40,17 @@
 ; Booleans
 (boolean) @boolean
 
+; Numbers inside (bool) or (boolean) typed values should be highlighted as booleans
+((typed_value
+  type: (type_name) @_type
+  value: (value (number) @boolean))
+ (#eq? @_type "bool"))
+
+((typed_value
+  type: (type_name) @_type
+  value: (value (number) @boolean))
+ (#eq? @_type "boolean"))
+
 ; Variables like $(foo)
 (variable) @variable
 

@@ -131,11 +131,6 @@
     }
   },
   {
-    "type": "boolean",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "comment",
     "named": true,
     "fields": {}
@@ -535,6 +530,10 @@
     "named": false
   },
   {
+    "type": "boolean",
+    "named": true
+  },
+  {
     "type": "cli_argument",
     "named": true
   },
@@ -545,10 +544,6 @@
   {
     "type": "expression",
     "named": true
-  },
-  {
-    "type": "false",
-    "named": false
   },
   {
     "type": "flags",
@@ -573,10 +568,6 @@
   {
     "type": "string_content",
     "named": true
-  },
-  {
-    "type": "true",
-    "named": false
   },
   {
     "type": "type_name",
