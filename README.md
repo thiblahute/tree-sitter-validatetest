@@ -39,6 +39,7 @@ vim.api.nvim_create_autocmd("User", {
         url = "https://github.com/thiblahute/tree-sitter-validatetest",
         files = { "src/parser.c" },
         branch = "main",
+        queries = "queries",
       },
     }
   end,

@@ -13,11 +13,11 @@
 
 ; Field names (parameters to the action call)
 (field_name
-  (identifier) @parameter)
+  (identifier) @variable.parameter)
 
 (field_name
   (property_path
-    (identifier) @parameter))
+    (identifier) @variable.parameter))
 
 ; Type names in casts
 (typed_value
