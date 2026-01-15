@@ -14,7 +14,7 @@
 module.exports = grammar({
   name: "validatetest",
 
-  extras: ($) => [/\s/, $.line_continuation],
+  extras: ($) => [/\s/, $.line_continuation, $.comment],
 
   conflicts: ($) => [
     [$.array_structure],
@@ -26,8 +26,8 @@ module.exports = grammar({
   ],
 
   rules: {
-    // A file is a sequence of entries (structures) and comments
-    source_file: ($) => repeat(choice($.structure, $.comment)),
+    // A file is a sequence of structures (comments handled by extras)
+    source_file: ($) => repeat($.structure),
 
     // Comments start with # and go to end of line
     comment: ($) => seq("#", /.*/),
@@ -43,8 +43,8 @@ module.exports = grammar({
     // Structure name (action type) - can be identifier or variable
     structure_name: ($) => choice($.identifier, $.variable),
 
-    // Comma-separated list of fields
-    field_list: ($) => sep1($.field, ","),
+    // Comma-separated list of fields (allows trailing comma)
+    field_list: ($) => seq(sep1($.field, ","), optional(",")),
 
     // A field is: name = value
     field: ($) =>
@@ -53,13 +53,12 @@ module.exports = grammar({
     // Field name can be a simple identifier or a property path
     field_name: ($) => choice($.property_path, $.identifier),
 
-    // Property path: element.pad::property or element::property
+    // Property path: element.pad::property or element::property or element::parent::parent::property
     property_path: ($) =>
       seq(
         $.identifier,
         optional(seq(".", $.identifier)),
-        "::",
-        $.identifier,
+        repeat1(seq("::", $.identifier)),
       ),
 
     // Field value
@@ -72,9 +71,9 @@ module.exports = grammar({
         $.nested_structure_block,
       ),
 
-    // Typed value: (type)value
+    // Typed value: (type)value or (type)[array] or (type)<array>
     typed_value: ($) =>
-      seq("(", field("type", $.type_name), ")", field("value", $.value)),
+      seq("(", field("type", $.type_name), ")", field("value", choice($.value, $.array, $.angle_bracket_array))),
 
     // Type name for casts
     type_name: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
@@ -96,8 +95,8 @@ module.exports = grammar({
         $.unquoted_string,
       ),
 
-    // CLI arguments like -t, --videosink (used in args blocks)
-    cli_argument: ($) => /--?[a-zA-Z][a-zA-Z0-9_-]*/,
+    // CLI arguments like -t, --videosink, +test-clip (used in args blocks)
+    cli_argument: ($) => /[-+][a-zA-Z][-a-zA-Z0-9_]*|--[a-zA-Z][-a-zA-Z0-9_]*/,
 
     // Double-quoted string with escapes
     // Expression and variable are matched first, then raw text
@@ -174,10 +173,10 @@ module.exports = grammar({
 
     // Unquoted string (bare identifier or value)
     // Using alias to make this distinct from identifier at parse level
-    unquoted_string: ($) => alias(/[a-zA-Z_][a-zA-Z0-9_\-.:]*/, "unquoted_string"),
+    unquoted_string: ($) => alias(/[a-zA-Z_][a-zA-Z0-9_\-.:/]*/, "unquoted_string"),
 
-    // Basic identifier
-    identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_\-]*/,
+    // Basic identifier (allows / for caps media types like video/x-raw)
+    identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_\-/]*/,
 
     // Array: [ item, item, ... ] or [ structure, structure, ... ]
     // Allows trailing commas
@@ -215,29 +214,26 @@ module.exports = grammar({
         $.nested_structure_block,
       ),
 
-    // GstValueArray: < item, item, ... > (angle bracket array)
+    // GstValueArray: < item, item, ... > (angle bracket array, allows trailing comma)
     angle_bracket_array: ($) =>
       seq(
         "<",
-        optional(sep1($.field_value, ",")),
+        optional(seq(sep1($.field_value, ","), optional(","))),
         ">",
       ),
 
     // Structure inside an array (without the trailing semicolon rules)
-    // Requires at least one field to distinguish from bare values
+    // Fields are optional - [video/x-raw] is a valid structure with no fields
     array_structure: ($) =>
-      seq($.structure_name, ",", $.field_list),
+      seq($.structure_name, optional(seq(",", $.field_list))),
 
     // Nested structure block: { structure, structure, ... } or { "string", "string", ... }
     // Note: strings, arrays, and other values are captured via field_value
-    // Allows trailing commas and embedded comments
+    // Allows trailing commas (comments are handled automatically via extras)
     nested_structure_block: ($) =>
       seq(
         "{",
-        repeat(choice(
-          $.comment,
-          seq(choice($.structure, $.field_value), optional(",")),
-        )),
+        repeat(seq(choice($.structure, $.field_value), optional(","))),
         "}",
       ),
   },

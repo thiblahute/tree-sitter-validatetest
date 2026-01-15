@@ -245,10 +245,6 @@
       "required": false,
       "types": [
         {
-          "type": "comment",
-          "named": true
-        },
-        {
           "type": "field_value",
           "named": true
         },
@@ -288,10 +284,6 @@
       "multiple": true,
       "required": false,
       "types": [
-        {
-          "type": "comment",
-          "named": true
-        },
         {
           "type": "structure",
           "named": true
@@ -397,6 +389,14 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "angle_bracket_array",
+            "named": true
+          },
+          {
+            "type": "array",
+            "named": true
+          },
           {
             "type": "value",
             "named": true
