@@ -11,13 +11,13 @@
   (structure_name
     (identifier) @function.call))
 
-; Field names
+; Field names (parameters to the action call)
 (field_name
-  (identifier) @label)
+  (identifier) @parameter)
 
 (field_name
   (property_path
-    (identifier) @label))
+    (identifier) @parameter))
 
 ; Type names in casts
 (typed_value
