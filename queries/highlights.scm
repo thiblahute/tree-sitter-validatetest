@@ -3,13 +3,13 @@
 ; Comments
 (comment) @comment
 
-; Structure/action names (keywords)
+; Structure/action names (function calls - actions are "called" with field arguments)
 (structure_name
-  (identifier) @keyword)
+  (identifier) @function.call)
 
 (array_structure
   (structure_name
-    (identifier) @keyword))
+    (identifier) @function.call))
 
 ; Field names
 (field_name
