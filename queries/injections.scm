@@ -29,6 +29,30 @@
  (#set! injection.language "validatetest")
  (#set! injection.include-children))
 
+; Typed caps values (lowercase alias) contain GstStructure/caps syntax
+((typed_value
+  type: (type_name) @_type
+  value: (value (string (string_inner) @injection.content)))
+ (#eq? @_type "caps")
+ (#set! injection.language "validatetest")
+ (#set! injection.include-children))
+
+; Typed GstStructure values contain GstStructure syntax
+((typed_value
+  type: (type_name) @_type
+  value: (value (string (string_inner) @injection.content)))
+ (#eq? @_type "GstStructure")
+ (#set! injection.language "validatetest")
+ (#set! injection.include-children))
+
+; Typed structure values (lowercase alias) contain GstStructure syntax
+((typed_value
+  type: (type_name) @_type
+  value: (value (string (string_inner) @injection.content)))
+ (#eq? @_type "structure")
+ (#set! injection.language "validatetest")
+ (#set! injection.include-children))
+
 ; Field named 'caps' with string value contains caps syntax
 ((field
   name: (field_name (identifier) @_field_name)

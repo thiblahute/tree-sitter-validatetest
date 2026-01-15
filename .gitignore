@@ -8,3 +8,6 @@ build/
 
 # Package lock (regenerated on install)
 package-lock.json
+
+target/
+Cargo.lock

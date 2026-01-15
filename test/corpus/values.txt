@@ -246,3 +246,139 @@ meta, args = { -t, --videosink }
             (field_value
               (value
                 (cli_argument)))))))))
+
+================================================================================
+Typed GstCaps with string value
+================================================================================
+
+seek, caps=(GstCaps)"video/x-raw,framerate=30/1"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (structure
+    (structure_name
+      (identifier))
+    (field_list
+      (field
+        (field_name
+          (identifier))
+        (field_value
+          (typed_value
+            (type_name)
+            (value
+              (string
+                (string_inner
+                  (string_content)
+                  (string_content)
+                  (string_content)
+                  (string_content)
+                  (string_content)
+                  (string_content)
+                  (string_content))))))))))
+
+================================================================================
+Typed GstCaps with array value
+================================================================================
+
+set-caps, caps=(GstCaps)[video/x-raw, format=I420]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (structure
+    (structure_name
+      (identifier))
+    (field_list
+      (field
+        (field_name
+          (identifier))
+        (field_value
+          (typed_value
+            (type_name)
+            (array
+              (array_element
+                (array_structure
+                  (structure_name
+                    (identifier))
+                  (field_list
+                    (field
+                      (field_name
+                        (identifier))
+                      (field_value
+                        (value
+                          (unquoted_string))))))))))))))
+
+================================================================================
+Caps field with media type
+================================================================================
+
+check-caps, caps=video/x-raw
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (structure
+    (structure_name
+      (identifier))
+    (field_list
+      (field
+        (field_name
+          (identifier))
+        (field_value
+          (value
+            (unquoted_string)))))))
+
+================================================================================
+Typed GstStructure with string value
+================================================================================
+
+set-struct, struct=(GstStructure)"video/x-raw,framerate=30/1;"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (structure
+    (structure_name
+      (identifier))
+    (field_list
+      (field
+        (field_name
+          (identifier))
+        (field_value
+          (typed_value
+            (type_name)
+            (value
+              (string
+                (string_inner
+                  (string_content)
+                  (string_content)
+                  (string_content)
+                  (string_content)
+                  (string_content)
+                  (string_content)
+                  (string_content))))))))))
+
+================================================================================
+Typed caps (lowercase alias) with string value
+================================================================================
+
+seek, caps=(caps)"audio/x-raw"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (structure
+    (structure_name
+      (identifier))
+    (field_list
+      (field
+        (field_name
+          (identifier))
+        (field_value
+          (typed_value
+            (type_name)
+            (value
+              (string
+                (string_inner
+                  (string_content))))))))))
