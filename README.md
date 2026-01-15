@@ -15,6 +15,7 @@ This grammar parses [`.validatetest` files](https://gstreamer.freedesktop.org/do
 - Arrays with nested structures (`[...]`)
 - GstValueArray (`<...>`)
 - Value blocks (`{...}`)
+- Syntax highlighting and auto-indentation for Neovim
 
 ## Installation
 

@@ -22,8 +22,16 @@ include = [
 [lib]
 path = "bindings/rust/lib.rs"
 
+[[bin]]
+name = "validatetest-fmt"
+path = "src/bin/validatetest-fmt.rs"
+
 [dependencies]
 tree-sitter-language = "0.1"
+tree-sitter = "0.24"
 
 [build-dependencies]
 cc = "1"
+
+[package.metadata.maturin]
+name = "tree-sitter-validatetest"
