@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "validatetest-fmt"
-version = "0.1.1"
+version = "0.1.2"
 description = "Formatter for GStreamer ValidateTest files"
 readme = "README-fmt.md"
 license = {text = "MIT"}
