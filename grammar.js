@@ -50,8 +50,13 @@ module.exports = grammar({
     field: ($) =>
       seq(field("name", $.field_name), "=", field("value", $.field_value)),
 
-    // Field name can be a simple identifier or a property path
-    field_name: ($) => choice($.property_path, $.identifier),
+    // Field name can be a simple identifier, a property path, or a digit-starting identifier
+    // (e.g. hex checksums like 29af35830cff...)
+    field_name: ($) => choice($.property_path, $.identifier, $.digit_field_name),
+
+    // Field names that start with a digit (not valid as general identifiers
+    // due to ambiguity with numbers, but valid in field name position)
+    digit_field_name: ($) => /[0-9][a-zA-Z0-9_\-/]*/,
 
     // Property path: element.pad::property or element::property or element::parent::parent::property
     property_path: ($) =>

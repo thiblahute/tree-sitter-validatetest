@@ -185,6 +185,10 @@
       "required": true,
       "types": [
         {
+          "type": "digit_field_name",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -273,7 +277,6 @@
   {
     "type": "source_file",
     "named": true,
-    "root": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -535,6 +538,10 @@
   },
   {
     "type": "cli_argument",
+    "named": true
+  },
+  {
+    "type": "digit_field_name",
     "named": true
   },
   {

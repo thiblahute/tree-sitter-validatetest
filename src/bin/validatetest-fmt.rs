@@ -1276,19 +1276,29 @@ fn format_file(
 
     let root = tree.root_node();
     if root.has_error() {
-        // Find the error node for better error message
-        let mut cursor = root.walk();
-        let children: Vec<_> = root.children(&mut cursor).collect();
-        for node in children {
-            if node.has_error() || node.kind() == "ERROR" {
-                return Err(format!(
-                    "Parse error at line {}, column {}",
-                    node.start_position().row + 1,
-                    node.start_position().column + 1
-                ));
+        // Find the deepest error node for a precise error position
+        fn find_error_node(node: tree_sitter::Node) -> Option<tree_sitter::Node> {
+            if node.kind() == "ERROR" || node.is_missing() {
+                return Some(node);
             }
+            let mut cursor = node.walk();
+            for child in node.children(&mut cursor) {
+                if child.has_error() || child.kind() == "ERROR" || child.is_missing() {
+                    if let Some(error) = find_error_node(child) {
+                        return Some(error);
+                    }
+                }
+            }
+            None
         }
-        return Err("Parse error in file".to_string());
+
+        let error_node = find_error_node(root);
+        let pos = error_node.map_or(root.start_position(), |n| n.start_position());
+        return Err(format!(
+            "Parse error at line {}, column {}",
+            pos.row + 1,
+            pos.column + 1
+        ));
     }
 
     let formatter = Formatter::new(source, indent_width, max_line_length);

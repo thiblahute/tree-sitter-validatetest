@@ -1,5 +1,4 @@
 {
-  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "validatetest",
   "rules": {
     "source_file": {
@@ -167,8 +166,16 @@
         {
           "type": "SYMBOL",
           "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "digit_field_name"
         }
       ]
+    },
+    "digit_field_name": {
+      "type": "PATTERN",
+      "value": "[0-9][a-zA-Z0-9_\\-/]*"
     },
     "property_path": {
       "type": "SEQ",
