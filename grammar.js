@@ -19,7 +19,6 @@ module.exports = grammar({
   conflicts: ($) => [
     [$.array_structure],
     [$.structure],
-    [$.structure, $.field_value],
     [$.structure_name, $.array_value],
     [$.structure_name, $.value],
     [$.field_list],
