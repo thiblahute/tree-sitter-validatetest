@@ -1,8 +1,41 @@
-# Dependabot config for npm packages.
-# Drop into .github/dependabot.yml in the target repo.
+# Dependabot config — covers cargo, npm, gomod, pip and github-actions
+# manifests detected at the repo root.
 version: 2
 updates:
+  - package-ecosystem: "cargo"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+    groups:
+      patch-and-minor:
+        update-types: ["patch", "minor"]
+
   - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+    groups:
+      patch-and-minor:
+        update-types: ["patch", "minor"]
+
+  - package-ecosystem: "gomod"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+
+  - package-ecosystem: "pip"
     directory: "/"
     schedule:
       interval: "weekly"
